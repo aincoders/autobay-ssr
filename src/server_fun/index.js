@@ -1,0 +1,12 @@
+export {default as homepageGetServerProps} from './homepageGetServerProps';
+export {default as packageListServerProps} from './packageListServerProps';
+export {default as packageDetailServerProps} from './packageDetailServerProps';
+export {default as ourServiceServerProps} from './ourServiceServerProps';
+export {default as faqServerProps} from './faqServerProps';
+export {default as requestQuoteServerProps} from './requestQuoteServerProps';
+export {default as aboutUsServerProps} from './aboutUsServerProps';
+export {default as contactUsServerProps} from './contactUsServerProps';
+export {default as blogServerProps} from './blogServerProps';
+export {default as blogDetailsServerProps} from './blogDetailsServerProps';
+export {default as milesServerProps} from './milesServerProps';
+export {default as basicInfoServerProps} from './basicInfoServerProps';
