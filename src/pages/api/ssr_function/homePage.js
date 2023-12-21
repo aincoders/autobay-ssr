@@ -66,6 +66,6 @@ export default async (req, res) => {
     res.status(200).json(data);
   } catch (error) {
     console.log(error)
-    throw error
+    res.status(405).json({result:"No any slug provide"});
   }
 };
