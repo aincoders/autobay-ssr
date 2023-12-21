@@ -1,7 +1,6 @@
+import axios from 'axios';
+import { setCookie } from 'cookies-next';
 import { PATH_PAGE } from 'src/routes/paths';
-import { homepageGetServerProps } from 'src/server_fun';
-import axios from "src/utils/axios";
-import { SLUG_CHECK } from 'src/utils/constant';
 import CustomerLayout from '../../layouts/custom/CustomeMainLayout';
 import { HomePageProvider } from '../../mycontext/HomePageContext';
 import HomePageItem from '../../sections/home_page';
@@ -9,27 +8,30 @@ import HomePageItem from '../../sections/home_page';
 
 CityPage.getLayout = (page) => <CustomerLayout>{page}</CustomerLayout>;
 export default function CityPage({ slugData, referenceData = '' }) {
+
+    console.log(slugData)
+    console.log(referenceData)
+
     return (
-        <HomePageProvider props={{...slugData, ...referenceData}}>
-            <HomePageItem /> 
+        <HomePageProvider props={{ ...slugData, ...referenceData }}>
+            <HomePageItem />
         </HomePageProvider>
     );
 }
 
 
 export async function getServerSideProps(context) {
-    const { query,req } = context;
+    const { query, req, res } = context;
     const citySlug = query?.city;
     try {
         const params = { path1: citySlug, path2: '', path3: '', path4: '' };
-        const response = await axios.get(SLUG_CHECK, { params });
+        const response = await axios.get('http://localhost:7212/api/ssr_function/homePage/', { params });
         const data = response?.data?.result;
 
-        const currentCity = data?.city_info || '';
+        setCookie('currentCity_v1', data?.currentCity, { req, res, maxAge: 31536000 });
+        setCookie('currentVehicle', data?.currentVehicle, { req, res, maxAge: 31536000 });
 
-        const referenceData = await homepageGetServerProps(context, currentCity)
-
-        return { props: { slugData: data, referenceData } }
+        return { props: { slugData: data, referenceData: data } }
     }
     catch (error) {
         console.log(error)
