@@ -32,7 +32,7 @@ export default function HomePage({ currentCity }) {
 
 export async function getServerSideProps(context) {
     const { req } = context;
-    const currentCity = req.cookies?.currentCity_v1 ? await JSON.parse(req.cookies?.currentCity_v1) : "";
-    const currentVehicle = req.cookies?.currentVehicle ? await JSON.parse(req.cookies?.currentVehicle) : { make: '', model: '' };
-    return { props: { currentCity, currentVehicle } };
+    // const currentCity = req.cookies?.currentCity_v1 ? await JSON.parse(req.cookies?.currentCity_v1) : "";
+    // const currentVehicle = req.cookies?.currentVehicle ? await JSON.parse(req.cookies?.currentVehicle) : { make: '', model: '' };
+    return { props: { currentCity:"", } };
 }
