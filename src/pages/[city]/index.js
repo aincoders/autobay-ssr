@@ -23,8 +23,9 @@ export async function getServerSideProps(context) {
     const citySlug = query?.city;
     try {
         const params = { path1: citySlug, path2: '', path3: '', path4: '' };
-        const response = await axios.get('https://autobay-ssr.vercel.app/api/ssr_function/homePage/', { params });
+        const response = await axios.get('https://autobay-ssr.vercel.app/api/ssr_function/homePage', { params });
         const data = response?.data?.result;
+        console.log(params)
 
         setCookie('currentCity_v1', data?.currentCity, { req, res, maxAge: 31536000 });
         setCookie('currentVehicle', data?.currentVehicle, { req, res, maxAge: 31536000 });
@@ -33,7 +34,7 @@ export async function getServerSideProps(context) {
         return { props: { slugData: data, referenceData: data } }
     }
     catch (error) {
-        console.log(error)
+        console.log(error.msg)
         return { redirect: { destination: PATH_PAGE.page404, permanent: false } };
     }
 }
