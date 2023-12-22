@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { setCookie } from 'cookies-next';
 import { PATH_PAGE } from 'src/routes/paths';
+import { homepageGetServerProps } from 'src/server_fun';
+import axios from "src/utils/axios";
+import { SLUG_CHECK } from 'src/utils/constant';
 import CustomerLayout from '../../layouts/custom/CustomeMainLayout';
 import { HomePageProvider } from '../../mycontext/HomePageContext';
 import HomePageItem from '../../sections/home_page';
@@ -8,34 +9,29 @@ import HomePageItem from '../../sections/home_page';
 
 CityPage.getLayout = (page) => <CustomerLayout>{page}</CustomerLayout>;
 export default function CityPage({ slugData, referenceData = '' }) {
-
     return (
-        <HomePageProvider props={{ ...slugData, ...referenceData }}>
-            <HomePageItem />
+        <HomePageProvider props={{...slugData, ...referenceData}}>
+            <HomePageItem /> 
         </HomePageProvider>
     );
 }
 
-
-
 export async function getServerSideProps(context) {
-    const { query, req, res } = context;
+    const { query,req } = context;
     const citySlug = query?.city;
     try {
         const params = { path1: citySlug, path2: '', path3: '', path4: '' };
-        const response = await axios.get('https://autobay-ssr.vercel.app/api/ssr_function/homePage', { params });
+        const response = await axios.get(SLUG_CHECK, { params });
         const data = response?.data?.result;
-        console.log(params)
 
-        setCookie('currentCity_v1', data?.currentCity, { req, res, maxAge: 31536000 });
-        setCookie('currentVehicle', data?.currentVehicle, { req, res, maxAge: 31536000 });
-        setCookie('currentPage', 'HOME', { maxAge: 31536000 });
+        const currentCity = data?.city_info || '';
 
-        return { props: { slugData: data, referenceData: data } }
+        const referenceData = await homepageGetServerProps(context, currentCity)
+
+        return { props: { slugData: data, referenceData } }
     }
     catch (error) {
-        console.log(error.msg)
+        console.log(error)
         return { redirect: { destination: PATH_PAGE.page404, permanent: false } };
     }
 }
-
