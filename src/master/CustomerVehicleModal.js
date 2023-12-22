@@ -63,7 +63,6 @@ export default function CustomerVehicleModal({ open, onClose }) {
         const params = { vehicle_model_master_id: data.vehicle_model_master_id, promo_code_id: '' };
         dispatch(getCartItemOnline(params));
 
-        const { city } = router.query;
         const pathSegments = router.query.category || [];
 
         if (!router.pathname.split('/').some((path) => NOT_EXIST_CHECK.includes(path))) {

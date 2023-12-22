@@ -9,9 +9,6 @@ import HomePageItem from '../../sections/home_page';
 CityPage.getLayout = (page) => <CustomerLayout>{page}</CustomerLayout>;
 export default function CityPage({ slugData, referenceData = '' }) {
 
-    console.log(slugData)
-    console.log(referenceData)
-
     return (
         <HomePageProvider props={{ ...slugData, ...referenceData }}>
             <HomePageItem />
@@ -21,18 +18,17 @@ export default function CityPage({ slugData, referenceData = '' }) {
 
 
 
-
-
 export async function getServerSideProps(context) {
     const { query, req, res } = context;
     const citySlug = query?.city;
     try {
         const params = { path1: citySlug, path2: '', path3: '', path4: '' };
-        const response = await axios.get('http://localhost:7212/api/ssr_function/homePage/', { params });
+        const response = await axios.get('https://autobay-ssr.vercel.app/api/ssr_function/homePage/', { params });
         const data = response?.data?.result;
 
         setCookie('currentCity_v1', data?.currentCity, { req, res, maxAge: 31536000 });
         setCookie('currentVehicle', data?.currentVehicle, { req, res, maxAge: 31536000 });
+        setCookie('currentPage', 'HOME', { maxAge: 31536000 });
 
         return { props: { slugData: data, referenceData: data } }
     }

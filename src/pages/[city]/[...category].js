@@ -46,6 +46,7 @@ export async function getServerSideProps(context) {
         const currentCity = data?.city_info || '';
         const currentVehicle = { make: data?.make_info || '', model: data?.model_info || '' }
 
+        console.log(params)
         let referenceData;
         if (data?.service_group_info) {
             referenceData = await packageDetailServerProps(context, currentCity, currentVehicle)
@@ -60,7 +61,6 @@ export async function getServerSideProps(context) {
         return { props: { slugData: data, referenceData } }
     }
     catch (error) {
-        console.log(error)
         return { redirect: { destination: PATH_PAGE.page404, permanent: false } };
     }
 

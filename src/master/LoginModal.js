@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { CallOutlined, CloseOutlined, EditOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Avatar, Box, Drawer, FormGroup, Grid, IconButton, InputAdornment, MenuItem, Typography } from '@mui/material';
+import { getCookie } from 'cookies-next';
 import { t } from 'i18next';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
@@ -128,10 +129,16 @@ export default function LoginModal({ open, onClose }) {
                     onChangeVehicle(data, data)
 
                     const pathSegments = router.query.category || [];
-
                     if (!router.pathname.split('/').some((path) => NOT_EXIST_CHECK.includes(path))) {
-                        var getUrl = pathSegments.length > 0 ? `/${currentCity.slug}/${pathSegments[0]}/${data.vehicle_model_slug}` : `/${currentCity.slug}/${data.vehicle_model_slug}`;
+                        var getUrl;
+                        const currentPage = getCookie('currentPage')
+                        if (currentPage == 'PACKAGE_LIST' || currentPage == 'PACKAGE_DETAILS') {
+                            getUrl = `/${currentCity.slug}/${pathSegments[0]}/${data.vehicle_model_slug}`;
+                        } else {
+                            getUrl = `/${currentCity.slug}/${data.vehicle_model_slug}`;
+                        }
                         router.push(`/[city]/[...category]`, getUrl);
+                        
                     }
                 }
                 enqueueSnackbar(response.data.msg, { variant: 'success' });

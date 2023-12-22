@@ -21,7 +21,7 @@ export default function FooterNavigation() {
 
     function navigateHomePage() {
         var getUrl = model ? `/${currentCity.slug}${`/${model.vehicle_model_slug}`}` : `/${currentCity.slug}${make && `/${make.vehicle_make_slug}`}`;
-        push(`/[city]/[...category]?vehicleSlug=true`, getUrl)
+        push(getUrl)
     }
 
     function navigateProfile() {
