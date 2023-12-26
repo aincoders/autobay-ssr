@@ -1,6 +1,6 @@
 import { setCookie } from 'cookies-next';
 import axios from "src/utils/axios";
-import { ABOUT_API, CITY_API, CUSTOMER_API, SCHEMA_API, SEO_PAGE_TYPE, SETTING_API } from "src/utils/constant";
+import { CITY_API, SETTING_API } from "src/utils/constant";
 
 
 export default async function basicInfoServerProps(context, city = '', vehicle = { make: '', model: '' }) {

@@ -32,6 +32,7 @@ const DashboardHeader = dynamic(() => import('src/layouts/custom/header'), { ssr
 export default function HomePageItem() {
     const {isInitialized} = useAuthContext()
 
+
     const Items = [
         { type: 'HOME', view: <HomePageBanner /> },
         { type: 'CATEGORY', view: <HomePageCategory /> },
@@ -54,10 +55,6 @@ export default function HomePageItem() {
         $MAKE_NAME: currentVehicle?.make?.vehicle_make_name || '',
         $MODEL_NAME: currentVehicle?.model?.vehicle_model_name || ''
     })[match]);
-
-    if (sectionList.length === 0) {
-        return <LoadingScreen />;
-    }
 
 
     return (

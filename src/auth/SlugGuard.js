@@ -118,7 +118,6 @@ export default function SlugGuard({ children }) {
 
       
     return <>
-        {(!isInitialized) && <Box sx={{ position: "fixed", height: "100vh", width: "100%", zIndex: 9999, bgcolor: "background.neutral" }}>{<LoadingScreen />}</Box>}
         {children}
     </>;
 }

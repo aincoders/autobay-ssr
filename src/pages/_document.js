@@ -9,15 +9,9 @@ export default class MyDocument extends Document {
         return (
             <Html className={primaryFont.className}>
                 <Head>
-
-                    <meta charSet="utf-8" />
+                    <DocumentHeadTags {...this.props} />
                     {/* <link rel="manifest" href="/manifest.json" /> */}
                     <meta name="theme-color" content={palette.light.primary.main} />
-
-                    <meta name="emotion-insertion-point" content="" />
-
-                    <DocumentHeadTags {...this.props} />
-
                     <meta name="author" content="Aincoders" />
                     <link rel="stylesheet" href="/assets/css/index.css" />
                 </Head>

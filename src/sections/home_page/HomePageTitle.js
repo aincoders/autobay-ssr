@@ -109,7 +109,68 @@ export default function HomePageTitle() {
     if (!sectionList.find((item) => item.section_type == 'SEARCH_VEHICLE')) return null
     return (
         <>
-            {isDesktop ? (
+            {!isDesktop ? (
+                <Box sx={{ py: SPACING.xs, bgcolor: 'background.paper' }}>
+                <Container maxWidth="xl">
+                    <Box>
+                        <Box display={'flex'} flexDirection="column" gap={3}>
+                            <Box display={'flex'} flexDirection="column">
+                                <Typography variant={isDesktop ? 'h1' : 'h6'}>
+                                    {replaceString(searchVehicle.homepage_section_title)}
+                                </Typography>
+                                <Typography variant={'caption'} color="text.secondary">
+                                    {replaceString(searchVehicle.homepage_section_description)}
+                                </Typography>
+                            </Box>
+                            <FormProvider methods={methods} autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                                <Grid container spacing={2} rowSpacing={2}>
+                                    <Grid item xs={12}>
+                                        <RHFTextField
+                                            autoComplete="off"
+                                            name="vehicle_make_model.model_name"
+                                            placeholder={'Search by brands, models'}
+                                            fullWidth
+                                            InputProps={{
+                                                startAdornment: (<InputAdornment position="start"><Search fontSize="small" /></InputAdornment>),
+                                                endAdornment: (<InputAdornment position="end"><ArrowDropDown fontSize="small" /></InputAdornment>),
+                                                readOnly: true,
+                                            }}
+                                            onClick={() => setMakeModal(true)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <RHFTextField
+                                            autoComplete="off"
+                                            type={'number'}
+                                            name="phone_number"
+                                            placeholder={'Phone number'}
+                                            fullWidth
+                                            InputProps={{
+                                                startAdornment: (<InputAdornment position="start">+{currentCity?.country_code}</InputAdornment>),
+                                            }}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <LoadingButton
+                                            fullWidth
+                                            loading={isSubmitting}
+                                            type="submit"
+                                            variant="contained"
+                                            sx={{
+                                                textTransform: 'uppercase',
+                                            }}
+                                        >
+                                            Check Prices For Free
+                                        </LoadingButton>
+                                    </Grid>
+                                </Grid>
+                            </FormProvider>
+                        </Box>
+                    </Box>
+                </Container>
+            </Box>
+            ) : (
                 <Box>
                     <Box sx={{ bgcolor: (theme) => theme.palette.secondary.main, py: { xs: SPACING.xs, md: SPACING.md } }}>
                         <Container maxWidth="lg" >
@@ -190,67 +251,7 @@ export default function HomePageTitle() {
                         </Container>
                     </Box>
                 </Box>
-            ) : (
-                <Box sx={{ py: SPACING.xs, bgcolor: 'background.paper' }}>
-                    <Container maxWidth="xl">
-                        <Box>
-                            <Box display={'flex'} flexDirection="column" gap={3}>
-                                <Box display={'flex'} flexDirection="column">
-                                    <Typography variant={'h6'}>
-                                        {replaceString(searchVehicle.homepage_section_title)}
-                                    </Typography>
-                                    <Typography variant={'caption'} color="text.secondary">
-                                        {replaceString(searchVehicle.homepage_section_description)}
-                                    </Typography>
-                                </Box>
-                                <FormProvider methods={methods} autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                                    <Grid container spacing={2} rowSpacing={2}>
-                                        <Grid item xs={12}>
-                                            <RHFTextField
-                                                autoComplete="off"
-                                                name="vehicle_make_model.model_name"
-                                                placeholder={'Search by brands, models'}
-                                                fullWidth
-                                                InputProps={{
-                                                    startAdornment: (<InputAdornment position="start"><Search fontSize="small" /></InputAdornment>),
-                                                    endAdornment: (<InputAdornment position="end"><ArrowDropDown fontSize="small" /></InputAdornment>),
-                                                    readOnly: true,
-                                                }}
-                                                onClick={() => setMakeModal(true)}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <RHFTextField
-                                                autoComplete="off"
-                                                type={'number'}
-                                                name="phone_number"
-                                                placeholder={'Phone number'}
-                                                fullWidth
-                                                InputProps={{
-                                                    startAdornment: (<InputAdornment position="start">+{currentCity?.country_code}</InputAdornment>),
-                                                }}
-                                            />
-                                        </Grid>
-
-                                        <Grid item xs={12}>
-                                            <LoadingButton
-                                                fullWidth
-                                                loading={isSubmitting}
-                                                type="submit"
-                                                variant="contained"
-                                                sx={{
-                                                    textTransform: 'uppercase',
-                                                }}
-                                            >
-                                                Check Prices For Free
-                                            </LoadingButton>
-                                        </Grid>
-                                    </Grid>
-                                </FormProvider>
-                            </Box>
-                        </Box>
-                    </Container>
-                </Box>
+                
             )}
 
             {currentVehicle.make

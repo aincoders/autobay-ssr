@@ -1,4 +1,6 @@
-import { Delete, MyLocation, ReportProblemOutlined, SearchOutlined } from '@mui/icons-material';
+import MyLocationOutlined from '@mui/icons-material/MyLocationOutlined';
+import ReportProblemOutlined from '@mui/icons-material/ReportProblemOutlined';
+import SearchOutlined from '@mui/icons-material/SearchOutlined';
 import { LoadingButton } from '@mui/lab';
 import { Avatar, Box, Button, Dialog, Drawer, Grid, InputAdornment, Skeleton, Tab, Tabs, TextField, Typography, Zoom } from '@mui/material';
 import { t } from 'i18next';
@@ -12,8 +14,7 @@ import { useSettingsContext } from '../components/settings';
 import { DRAWER, HEADER } from '../config-global';
 import useApi from '../hooks/useApi';
 import useResponsive from '../hooks/useResponsive';
-import { CITY_API, NOT_EXIST_CHECK } from '../utils/constant';
-import ConfirmDialog from './ConfirmDialog';
+import { CITY_API } from '../utils/constant';
 
 export default function CountryWithCityModal({ open, onClose }) {
     const { getApiData } = useApi();
@@ -58,28 +59,9 @@ export default function CountryWithCityModal({ open, onClose }) {
     }, [open]);
 
     function changeCity(city) {
+        router.push(`/${city.slug}`);
         onChangeCity(city);
         onClose(false)
-        const pathSegments = router.query.category || [];
-        // const pathSegments = router.asPath.split('/').filter((item) => item.length > 0) || [];
-        var getUrl = `/${city.slug}/${pathSegments.join('/')}`;
-
-        if (router.query.packageDetailSlug) {
-            router.push(`/[city]/[...category]?packageDetailSlug=true`, getUrl);
-        }
-        else if (router.query.packageCategory) {
-            router.push(`/[city]/[...category]?packageCategory=true`, getUrl);
-        }
-        else if (router.query.vehicleSlug) {
-            router.push(`/[city]/[...category]?vehicleSlug=true`, getUrl);
-        }
-        else {
-            if (!router.pathname.split('/').some((path) => NOT_EXIST_CHECK.includes(path))) {
-                router.push(`/${city.slug}`);
-            }
-        }
-
-        document.cookie = `currentCity_v1=${JSON.stringify(city)}; path=/`
     }
 
     function handleTabChange(value) {
@@ -155,7 +137,7 @@ export default function CountryWithCityModal({ open, onClose }) {
                                 loading={loadingButton}
                                 variant='contained'
                                 color='secondary'
-                                startIcon={<MyLocation />}
+                                startIcon={<MyLocationOutlined />}
                                 onClick={() => getLocation()}
                             >
                                 {t('detect_my_location')}

@@ -1,5 +1,4 @@
-import { DirectionsCarOutlined } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
+import DirectionsCarOutlined from '@mui/icons-material/DirectionsCarOutlined';
 import AutoBayAndroidIcon192 from 'src/assets/image/favicon/auto_bay/android-icon-192x192.png';
 import AutoBayAppleIcon114 from 'src/assets/image/favicon/auto_bay/apple-icon-114x114.png';
 import AutoBayAppleIcon120 from 'src/assets/image/favicon/auto_bay/apple-icon-120x120.png';
