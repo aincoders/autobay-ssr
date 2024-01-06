@@ -1,5 +1,6 @@
-import { DeleteOutlined, EditOutlined } from '@mui/icons-material';
+import { DeleteOutlined, EditOutlined, VisibilityRounded } from '@mui/icons-material';
 import { Box, Card, Grid, IconButton, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +8,7 @@ import Image from 'src/components/image';
 import { useSettingsContext } from 'src/components/settings';
 import { VEHICLE_TYPE_ICON } from 'src/config-global';
 import { ConfirmDialog } from 'src/master';
+import { PATH_FLEET_MANAGEMNT } from 'src/routes/paths';
 
 CustomerVehicleList.propTypes = {
     Row: PropTypes.object.isRequired,
@@ -16,8 +18,9 @@ CustomerVehicleList.propTypes = {
 };
 
 export default function CustomerVehicleList({ Row, onEdit, onDelete, changeVehicle }) {
-    const { vehicle_model_name, vehicle_model_photo, vehicle_reg_no, vehicle_make_name, vehicle_model_group_name, year, kilometre, show_delete_button, vehicle_model_master_id } = Row;
+    const {customer_vehicle_id, vehicle_model_name, vehicle_model_photo, vehicle_reg_no, vehicle_make_name, vehicle_model_group_name, year, kilometre, show_delete_button, vehicle_model_master_id } = Row;
     const { t } = useTranslation();
+    const router = useRouter()
 
     const [confirmation, setConfirmation] = useState(false);
     async function confirmationClose(value) {
@@ -33,7 +36,10 @@ export default function CustomerVehicleList({ Row, onEdit, onDelete, changeVehic
 
     return (
         <>
-            <Grid item xs={12} md={4}>
+            {/* <Grid item xs={12} md={4} onClick={() => { router.push(PATH_FLEET_MANAGEMNT.vehicle); }}> */}
+            <Grid item xs={12} md={4} >
+
+
                 <Box display={'flex'} justifyContent="space-between" flexDirection={'column'} gap={1} flex={1} component={Card} p={2} variant="elevation" sx={{ height: '100%' }}>
                     <Box display={'flex'} gap={2} alignItems={'center'}>
                         {vehicle_model_photo ? (
@@ -54,6 +60,11 @@ export default function CustomerVehicleList({ Row, onEdit, onDelete, changeVehic
                     </Box>
                     <Box display={'flex'} alignItems="flex-end" justifyContent={'space-between'}>
                         <Box display={'flex'} gap={1}>
+
+                        <IconButton onClick={() => { router.push(`${PATH_FLEET_MANAGEMNT.vehicle}/${customer_vehicle_id}`); }} size="small" variant="soft" color="inherit">
+                                <VisibilityRounded fontSize="small" />
+                            </IconButton>
+
                             <IconButton onClick={() => onEdit()} size="small" variant="soft" color="inherit">
                                 <EditOutlined fontSize="small" />
                             </IconButton>

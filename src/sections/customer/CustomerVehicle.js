@@ -123,7 +123,6 @@ export default function CustomerVehicle() {
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                {' '}
                                                 <SearchOutlined fontSize="small" />
                                             </InputAdornment>
                                         ),
@@ -172,11 +171,12 @@ export default function CustomerVehicle() {
             </Container>
 
             <MakeMasterModal open={makeModal} onClose={makeModalClose} />
-            <EditVehicleModal
+          {editVehicleModal.status &&   <EditVehicleModal
                 open={editVehicleModal.status}
                 referenceData={editVehicleModal.data}
                 onClose={editVehicleModalClose}
             />
+        }
         </>
     );
 }

@@ -13,6 +13,8 @@ module.exports = {
         pathname: '**',
       },
     ],
+    timeout: 10000, // Set the timeout to 10 seconds (adjust as needed)
+
   },
   env: {
     NEXT_PUBLIC_API_URL: 'https://api.okmechanic.store/customer',

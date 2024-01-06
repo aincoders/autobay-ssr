@@ -11,6 +11,7 @@ export const ROOTS_CUSTOMER = '/customer';
 export const ROOTS_CART = '/cart';
 export const ROOTS_BLOG = '/blog';
 export const ROOTS_NEWS_MEDIA = '/news-media';
+export const ROOTS_FLEET_MANAGEMNT = '/fleet-management';
 
 export const PATH_PAGE = {
     comingSoon: '/coming-soon',
@@ -35,9 +36,22 @@ export const PATH_CUSTOMER = {
     estimate: path(ROOTS_CUSTOMER, '/estimate'),
     orders: path(ROOTS_CUSTOMER, '/orders'),
     wallet: path(ROOTS_CUSTOMER, '/wallet'),
+    
     ordersDetails: (orderID) => path(ROOTS_CUSTOMER, `/orders/${orderID}`),
     estimateDetails: (estimateID) => path(ROOTS_CUSTOMER, `/estimate/${estimateID}`),
 };
+
+export const PATH_FLEET_MANAGEMNT = {
+    root: ROOTS_FLEET_MANAGEMNT,
+    vehicle: path(ROOTS_FLEET_MANAGEMNT, '/vehicle/'),
+    service_reminder: path(ROOTS_FLEET_MANAGEMNT, '/service_reminder/'),
+    document_reminder: path(ROOTS_FLEET_MANAGEMNT, '/document_reminder/'),
+    vehicle_photo: path(ROOTS_FLEET_MANAGEMNT, '/vehicle_photo/'),
+    driver: path(ROOTS_FLEET_MANAGEMNT, '/driver/'),
+
+};
+
+
 
 export const PATH_BLOG = {
     root: ROOTS_BLOG,

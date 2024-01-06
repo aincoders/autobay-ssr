@@ -70,6 +70,8 @@ export const SEO_PAGE_TYPE = {
     blogDetails: 'BLOG_DETAILS',
 }
 
+
+
 export const CUSTOMER_API = {
     profile:"profile",
     industry:"industry",
@@ -141,6 +143,36 @@ export const CUSTOMER_API = {
     
     getRfqService: 'rfq_services',
     downloadOrderPaymentReceipt: 'order_payment_receipt/download',
+
+    //fleet
+    vehicleDetail:"/fleet_management/vehicle/details",
+    servicereminder:"/fleet_management/servicereminder",
+    fleetService:"/fleet_management/services",
+    serviceReminderCreate:"/fleet_management/servicereminder/create",
+    serviceReminderDelete:"/fleet_management/servicereminder/delete",
+    serviceReminderUpdate:"fleet_management/servicereminder/update",
+    fleet_vehicle_photo_create:"fleet_management/vehiclephoto/create",
+    fleet_vehicle_photo_list:"fleet_management/vehiclephoto",
+    fleet_vehicle_photo_delete:"fleet_management/vehiclephoto/delete",
+    fleet_request_to_sell_vehicle:"fleet_management/vehicle/request_to_sell_vehicle",
+
+    fleet_management_driver:"fleet_management/driver",
+    fleet_management_driver_create:"fleet_management/driver/create",
+    fleet_management_driver_update_status:"fleet_management/driver/update_status",
+    fleet_management_driver_update:"fleet_management/driver/update",
+    fleet_management_vehicledriver_assign:"fleet_management/vehicledriver/assign_driver",
+    fleet_management_vehicledriver:"fleet_management/vehicledriver",
+    fleet_management_vehicledriver_delete_driver :"/fleet_management/vehicledriver/delete_driver",
+    fleet_management_document_type:"fleet_management/document_type",
+    fleet_management_document_reminder_create:"fleet_management/document_reminder/create",
+    fleet_management_document_reminder:"fleet_management/document_reminder",
+    fleet_management_document_reminder_delete:"fleet_management/document_reminder/delete",
+    fleet_management_document_reminder_update:"fleet_management/document_reminder/update",
+    fleet_management_servicegroup:"fleet_management/servicegroup",
+
+    fleet_management_document_reminder_upload_document:"fleet_management/document_reminder/upload_document",
+    fleet_management_document_reminder_documents_list:"fleet_management/document_reminder/documents_list",
+    fleet_management_document_reminder_delete_document:"fleet_management/document_reminder/delete_document",
 
 
 };

@@ -82,7 +82,7 @@ export function RHFUpload({ name, multiple, helperText, ...other }) {
                 multiple ? (
                     <Upload
                         multiple
-                        accept={{ 'image/*': [] }}
+                        accept={{ 'image/*': []}}
                         files={field.value}
                         error={!!error}
                         helperText={

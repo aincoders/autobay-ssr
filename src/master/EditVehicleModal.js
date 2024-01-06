@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CloseOutlined, SpeedOutlined, Title, TitleOutlined } from '@mui/icons-material';
+import { CloseOutlined, SpeedOutlined, TitleOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import {Box,Drawer,FormGroup,Grid,IconButton,InputAdornment,Typography,} from '@mui/material';
+import { Box, Drawer, FormGroup, Grid, IconButton, InputAdornment, MenuItem, Typography, } from '@mui/material';
 import { t } from 'i18next';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuthContext } from 'src/auth/useAuthContext';
-import { FormProvider, RHFTextField } from 'src/components/hook-form';
+import { FormProvider, RHFSelect, RHFTextField } from 'src/components/hook-form';
 import Scrollbar from 'src/components/scrollbar';
 import { useSettingsContext } from 'src/components/settings';
 import { HEADER } from 'src/config-global';
@@ -20,6 +20,7 @@ export default function EditVehicleModal({ open, onClose, referenceData }) {
     const { customer } = useAuthContext();
 
     const [loading, setLoading] = useState(false);
+    const OWNERSHIP_TYPE = [{ title: t('owned'), value: "Owned" }, { title: t('leased'), value: "Leased" }, { title: t('rented'), value: "Rented" }, { title: t('customer'), value: "Customer" }];
 
     const defaultValues = {
         engine_number: '',
@@ -28,7 +29,19 @@ export default function EditVehicleModal({ open, onClose, referenceData }) {
         vehicle_reg_no: '',
         customer_vehicle_id: '',
         kilometre: '',
+        make: '',
+        model: '',
+        trim: '',
+        registration_province: '',
+        color: '',
+        body_type: '',
+        body_sub_type: '',
+        msrp: '',
+        ownership: '',
+
     };
+
+    console.log(referenceData)
 
     useEffect(() => {
         if (referenceData) {
@@ -38,6 +51,16 @@ export default function EditVehicleModal({ open, onClose, referenceData }) {
             setValue('vehicle_reg_no', referenceData.vehicle_reg_no);
             setValue('customer_vehicle_id', referenceData.customer_vehicle_id);
             setValue('kilometre', referenceData.kilometre);
+            setValue('make', referenceData.vehicle_make_name);
+            setValue('model', referenceData.vehicle_model_name);
+            setValue('trim', referenceData.trim);
+            setValue('registration_province', referenceData.registration_province);
+            setValue('color', referenceData.color);
+            setValue('ownership', referenceData.ownership);
+            setValue('body_type', referenceData.body_type);
+            setValue('body_sub_type', referenceData.body_sub_type);
+            setValue('msrp', referenceData.msrp);
+
         }
     }, [referenceData, open]);
 
@@ -64,6 +87,13 @@ export default function EditVehicleModal({ open, onClose, referenceData }) {
             vehicle_reg_no: values.vehicle_reg_no,
             customer_vehicle_id: values.customer_vehicle_id,
             kilometre: values.kilometre,
+            trim: values.trim,
+            registration_province: values.registration_province,
+            color: values.color,
+            ownership: values.ownership,
+            body_type: values.body_type,
+            body_sub_type: values.body_sub_type,
+            msrp: values.msrp,
         };
         await CustomerUpdateVehicle(data);
         setLoading(false);
@@ -133,22 +163,38 @@ export default function EditVehicleModal({ open, onClose, referenceData }) {
                                     <FormGroup>
                                         <Grid container spacing={2} rowSpacing={3}>
                                             <Grid item xs={12}>
-                                                 {currentCity.country_code == '973'
-                                                        ?
-                                                        <RHFTextField
-                                                            inputProps={{ maxLength: 6 }}
-                                                            name="vehicle_reg_no"
-                                                            label={t('vehicle_reg_no_')}
-                                                            onChange={(e) => {
-                                                                const numericValue = e.target.value.replace(/\D/g, '');
-                                                                e.target.value = numericValue;
-                                                                setValue('vehicle_reg_no', numericValue);
-                                                            }}
-                                                            InputProps={{ startAdornment: (<InputAdornment position="start"><TitleOutlined /></InputAdornment>) }}
-                                                        />
-                                                        :
-                                                        <RHFTextField name="vehicle_reg_no" label={t('vehicle_reg_no_')} InputProps={{ startAdornment: (<InputAdornment position="start"><TitleOutlined /></InputAdornment>) }} />
-                                                    }
+                                                {currentCity.country_code == '973'
+                                                    ?
+                                                    <RHFTextField
+                                                        inputProps={{ maxLength: 6 }}
+                                                        name="vehicle_reg_no"
+                                                        label={t('vehicle_reg_no_')}
+                                                        onChange={(e) => {
+                                                            const numericValue = e.target.value.replace(/\D/g, '');
+                                                            e.target.value = numericValue;
+                                                            setValue('vehicle_reg_no', numericValue);
+                                                        }}
+                                                        InputProps={{ startAdornment: (<InputAdornment position="start"><TitleOutlined /></InputAdornment>) }}
+                                                    />
+                                                    :
+                                                    <RHFTextField name="vehicle_reg_no" label={t('vehicle_reg_no_')} InputProps={{ startAdornment: (<InputAdornment position="start"><TitleOutlined /></InputAdornment>) }} />
+                                                }
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="make"
+                                                    label={t('make')}
+                                                    disabled
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="model"
+                                                    label={t('model')}
+                                                    disabled
+                                                />
                                             </Grid>
 
                                             <Grid item xs={12}>
@@ -182,6 +228,65 @@ export default function EditVehicleModal({ open, onClose, referenceData }) {
                                                             </InputAdornment>
                                                         ),
                                                     }}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="trim"
+                                                    label={t('trim')}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="registration_province"
+                                                    label={t('registration_province')}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <RHFSelect
+                                                    fullWidth
+                                                    name="ownership"
+                                                    label={t('ownership')}
+                                                    SelectProps={{ native: false, }}
+                                                >
+                                                    {OWNERSHIP_TYPE.map((option) => (
+                                                        <MenuItem key={option.value} value={option.value}>
+                                                            {option.title}
+                                                        </MenuItem>
+                                                    ))}
+                                                </RHFSelect>
+                                            </Grid>
+
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="body_type"
+                                                    label={t('body_type')}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="body_sub_type"
+                                                    label={t('body_sub_type')}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="text"
+                                                    name="color"
+                                                    label={t('color')}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={6}>
+                                                <RHFTextField
+                                                    type="number"
+                                                    name="msrp"
+                                                    label={t('msrp')}
                                                 />
                                             </Grid>
 

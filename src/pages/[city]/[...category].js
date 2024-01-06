@@ -41,12 +41,8 @@ export async function getServerSideProps(context) {
         const params = { path1: citySlug, path2: otherParams?.[0] || '', path3: otherParams?.[1] || '', path4: otherParams?.[2] || '' };
         const response = await axios.get(SLUG_CHECK, { params });
         const data = response?.data?.result;
-
-
         const currentCity = data?.city_info || '';
         const currentVehicle = { make: data?.make_info || '', model: data?.model_info || '' }
-
-        console.log(params)
         let referenceData;
         if (data?.service_group_info) {
             referenceData = await packageDetailServerProps(context, currentCity, currentVehicle)

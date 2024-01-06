@@ -68,7 +68,11 @@ export default function Upload({
             disabled,
             ...other,
             accept: {
-                'image/jpeg': ['.jpeg', '.png', '.jpg']
+                'image/jpeg': ['.jpeg', '.png', '.jpg'],
+                'application/pdf': ['.pdf'],
+                'application/msword': ['.doc', '.docx'],
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+                'text/plain': ['.txt'],
               }
         }
     );
@@ -210,7 +214,7 @@ function Placeholder({ sx, ...other }) {
                     >
                         browse
                     </Typography>
-                    thorough your machine
+                    through your machine
                 </Typography>
             </div>
         </Stack>

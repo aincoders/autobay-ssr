@@ -18,10 +18,10 @@ function ApiProvider({ children }) {
     const { enqueueSnackbar } = useSnackbar();
     const { logout, customer } = useAuthContext();
 
-    async function postApiData(url, data = {}) {
+    async function postApiData(url, data = {},showTost=true) {
         try {
             const response = await apiPostData(url, data);
-            response.data.msg && response.data.msg != 'success' && enqueueSnackbar(response.data.msg, { variant: 'success' });
+            showTost &&  response.data.msg && response.data.msg != 'success' && enqueueSnackbar(response.data.msg, { variant: 'success' });
             return response;
         } catch (error) {
             checkError(error);

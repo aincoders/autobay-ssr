@@ -46,14 +46,14 @@ export default function MyApp(props) {
     }, []);
 
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const loader = document.getElementById('globalLoader');
-            if (loader) {
-                loader.remove();
-            }
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined') {
+    //         const loader = document.getElementById('globalLoader');
+    //         if (loader) {
+    //             loader.remove();
+    //         }
+    //     }
+    // }, []);
 
 
 
@@ -121,13 +121,13 @@ export default function MyApp(props) {
                                             <ThemeLocalization>
                                                 <SnackbarProvider>
                                                     <ApiProvider>
-                                                        <div id="globalLoader" >
+                                                        {/* <div id="globalLoader" >
                                                             <div className="loader">
                                                                 <div className="circle" id="circle1"></div>
                                                                 <div className="circle" id="circle2"></div>
                                                                 <div className="circle" id="circle3"></div>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         <ProgressBar />
                                                         {getLayout(<Component {...pageProps} />)}
                                                     </ApiProvider>
